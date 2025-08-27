@@ -22,28 +22,30 @@ struct ReactionOverview: View {
     }
 
     var body: some View {
-        ScrollView(.horizontal) {
-            HStack(spacing: padding) {
-                Spacer()
-                ForEach(sortReactions()) { reaction in
-                    reactionUserView(reaction: reaction)
-                        .padding(padding / 2)
-                }
-                Spacer()
-            }
-            .frame(minWidth: width - (padding * 2))
-        }
-        .scrollIndicators(.hidden)
-        .frame(maxWidth: .infinity)
-        .background(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-                .fill(backgroundColor)
-        )
-        .clipShape(
-            RoundedRectangle(cornerRadius: 20, style: .continuous)
-        )
-        .padding(padding)
-        .offset(x: horizontalOffset)
+        // TODO: fix duplicate sortedReaction ID
+        EmptyView()
+//        ScrollView(.horizontal) {
+//            HStack(spacing: padding) {
+//                Spacer()
+//                ForEach(sortReactions()) { reaction in
+//                    reactionUserView(reaction: reaction)
+//                        .padding(padding / 2)
+//                }
+//                Spacer()
+//            }
+//            .frame(minWidth: width - (padding * 2))
+//        }
+//        .scrollIndicators(.hidden)
+//        .frame(maxWidth: .infinity)
+//        .background(
+//            RoundedRectangle(cornerRadius: 20, style: .continuous)
+//                .fill(backgroundColor)
+//        )
+//        .clipShape(
+//            RoundedRectangle(cornerRadius: 20, style: .continuous)
+//        )
+//        .padding(padding)
+//        .offset(x: horizontalOffset)
     }
 
     @ViewBuilder

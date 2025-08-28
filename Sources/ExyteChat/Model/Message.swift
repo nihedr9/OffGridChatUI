@@ -14,7 +14,8 @@ public struct Message: Identifiable, Hashable, Sendable {
         case sent
         case read
         case error(DraftMessage)
-
+        case deleted
+        
         public func hash(into hasher: inout Hasher) {
             switch self {
             case .sending:
@@ -25,6 +26,8 @@ public struct Message: Identifiable, Hashable, Sendable {
                 return hasher.combine("read")
             case .error:
                 return hasher.combine("error")
+            case .deleted:
+                return hasher.combine("deleted")
             }
         }
 
@@ -37,6 +40,8 @@ public struct Message: Identifiable, Hashable, Sendable {
             case (.read, .read):
                 return true
             case ( .error(_), .error(_)):
+                return true
+            case ( .deleted, .deleted):
                 return true
             default:
                 return false
@@ -58,6 +63,10 @@ public struct Message: Identifiable, Hashable, Sendable {
 
     public var triggerRedraw: UUID?
 
+    public var isDeleted: Bool {
+        status == .deleted
+    }
+    
     public init(id: String,
                 user: User,
                 status: Status? = nil,

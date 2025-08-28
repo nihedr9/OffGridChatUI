@@ -204,7 +204,8 @@ struct MessageView: View {
                 MessageTextView(
                     text: message.text, messageStyler: messageStyler,
                     userType: message.user.type, shouldShowLinkPreview: shouldShowLinkPreview,
-                    messageLinkPreviewLimit: messageLinkPreviewLimit
+                    messageLinkPreviewLimit: messageLinkPreviewLimit,
+                    isDeleted: message.isDeleted
                 )
                 .padding(.horizontal, MessageView.horizontalTextPadding)
             }
@@ -279,7 +280,8 @@ struct MessageView: View {
         let messageView = MessageTextView(
             text: message.text, messageStyler: messageStyler,
             userType: message.user.type, shouldShowLinkPreview: shouldShowLinkPreview,
-            messageLinkPreviewLimit: messageLinkPreviewLimit
+            messageLinkPreviewLimit: messageLinkPreviewLimit,
+            isDeleted: message.isDeleted
         )
         .fixedSize(horizontal: false, vertical: true)
         .padding(.horizontal, MessageView.horizontalTextPadding)

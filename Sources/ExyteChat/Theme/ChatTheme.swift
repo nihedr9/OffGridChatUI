@@ -170,7 +170,7 @@ public struct ChatTheme {
             statusGray: Color = Color("statusGray", bundle: .current),
             sendButtonBackground: Color = Color("messageMyBG", bundle: .current),
             recordDot: Color = Color("menuTextDelete", bundle: .current),
-            messageDeletedBG: Color = Color("menuTextDelete", bundle: .current)
+            messageDeletedBG: Color = Color("messageDeletedBG", bundle: .current)
         ) {
             self.mainBG = mainBG
             self.mainTint = mainTint

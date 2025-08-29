@@ -3,21 +3,24 @@
 //
 
 import SwiftUI
+import QuickLook
 
 public struct AttachmentCell: View {
-
+    
     @Environment(\.chatTheme) var theme
-
+    
     let attachment: Attachment
     let size: CGSize
     let onTap: (Attachment) -> Void
-
+    
+    @State private var selectedURL: URL?
+    
     public init(attachment: Attachment, size: CGSize, onTap: @escaping (Attachment) -> Void) {
         self.attachment = attachment
         self.size = size
         self.onTap = onTap
     }
-
+    
     public var body: some View {
         Group {
             if attachment.type == .image {
@@ -39,25 +42,24 @@ public struct AttachmentCell: View {
         }
         .frame(width: size.width, height: size.height)
         .contentShape(Rectangle())
-        .simultaneousGesture(
-            TapGesture().onEnded {
-                onTap(attachment)
-            }
-        )
+        .quickLookPreview($selectedURL)
+        .onTapGesture {
+            selectedURL = attachment.full
+        }
     }
-
+    
     var content: some View {
         AsyncImageView(attachment: attachment, size: size)
     }
 }
 
 struct AsyncImageView: View {
-
+    
     @Environment(\.chatTheme) var theme
 
     let attachment: Attachment
     let size: CGSize
-
+    
     var body: some View {
         CachedAsyncImage(
             url: attachment.thumbnail,

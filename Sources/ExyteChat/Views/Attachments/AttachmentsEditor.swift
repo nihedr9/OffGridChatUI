@@ -16,12 +16,12 @@ struct AttachmentsEditor<InputViewContent: View>: View {
     @Environment(\.chatTheme) var theme
     @Environment(\.mediaPickerTheme) var mediaPickerTheme
     @Environment(\.mediaPickerThemeIsOverridden) var mediaPickerThemeIsOverridden
-
+    
     @EnvironmentObject private var keyboardState: KeyboardState
     @EnvironmentObject private var globalFocusState: GlobalFocusState
-
+    
     @ObservedObject var inputViewModel: InputViewModel
-
+    
     var inputViewBuilder: InputViewBuilderClosure?
     var chatTitle: String?
     var messageStyler: (String) -> AttributedString
@@ -29,29 +29,36 @@ struct AttachmentsEditor<InputViewContent: View>: View {
     var mediaPickerSelectionParameters: MediaPickerParameters?
     var availableInputs: [AvailableInputType]
     var localization: ChatLocalization
-
+    
     @State private var seleсtedMedias: [Media] = []
     @State private var currentFullscreenMedia: Media?
-
+    
     var showingAlbums: Bool {
         inputViewModel.mediaPickerMode == .albums
     }
-
+    
+    private var selectionLimit: Int {
+        mediaPickerSelectionParameters?.selectionLimit ?? 1
+    }
+    
+    private var showFullscreenPreview: Bool {
+        mediaPickerSelectionParameters?.showFullscreenPreview ?? true
+    }
+    
     var body: some View {
         ZStack {
             mediaPicker
-
+            
             if inputViewModel.showActivityIndicator {
                 ActivityIndicator()
             }
         }
     }
-
+    
     var mediaPicker: some View {
         GeometryReader { g in
             MediaPicker(isPresented: $inputViewModel.showPicker) {
                 seleсtedMedias = $0
-                assembleSelectedMedia()
             } albumSelectionBuilder: { _, albumSelectionView, _ in
                 VStack {
                     albumSelectionHeaderView
@@ -90,15 +97,12 @@ struct AttachmentsEditor<InputViewContent: View>: View {
             .onChange(of: currentFullscreenMedia) {
                 assembleSelectedMedia()
             }
-            .onChange(of: inputViewModel.showPicker) {
-                let showFullscreenPreview = mediaPickerSelectionParameters?.showFullscreenPreview ?? true
-                let selectionLimit = mediaPickerSelectionParameters?.selectionLimit ?? 1
-
+            .onChange(of: seleсtedMedias, { _, newValue in
+                assembleSelectedMedia()
                 if selectionLimit == 1 && !showFullscreenPreview {
-                    assembleSelectedMedia()
                     inputViewModel.send()
                 }
-            }
+            })
             .applyIf(!mediaPickerThemeIsOverridden) {
                 $0.mediaPickerTheme(
                     main: .init(
@@ -113,7 +117,7 @@ struct AttachmentsEditor<InputViewContent: View>: View {
             }
         }
     }
-
+    
     func assembleSelectedMedia() {
         if !seleсtedMedias.isEmpty {
             inputViewModel.attachments.medias = seleсtedMedias
@@ -123,7 +127,7 @@ struct AttachmentsEditor<InputViewContent: View>: View {
             inputViewModel.attachments.medias = []
         }
     }
-
+    
     @ViewBuilder
     var inputView: some View {
         Group {
@@ -146,7 +150,7 @@ struct AttachmentsEditor<InputViewContent: View>: View {
             }
         }
     }
-
+    
     var albumSelectionHeaderView: some View {
         ZStack {
             HStack {
@@ -156,10 +160,10 @@ struct AttachmentsEditor<InputViewContent: View>: View {
                 } label: {
                     Text(localization.cancelButtonText)
                 }
-
+                
                 Spacer()
             }
-
+            
             HStack {
                 Text(localization.recentToggleText)
                 Image(systemName: "chevron.down")
@@ -176,7 +180,7 @@ struct AttachmentsEditor<InputViewContent: View>: View {
         .padding(.horizontal)
         .padding(.bottom, 5)
     }
-
+    
     func cameraSelectionHeaderView(cancelClosure: @escaping ()->()) -> some View {
         HStack {
             Button(action: cancelClosure) {
@@ -185,14 +189,14 @@ struct AttachmentsEditor<InputViewContent: View>: View {
             }
             .tint(mediaPickerTheme.main.pickerText)
             .padding(.trailing, 30)
-
+            
             if let chatTitle = chatTitle {
                 theme.images.mediaPicker.chevronRight
                 Text(chatTitle)
                     .font(.title3)
                     .foregroundColor(mediaPickerTheme.main.pickerText)
             }
-
+            
             Spacer()
         }
         .padding(.horizontal)

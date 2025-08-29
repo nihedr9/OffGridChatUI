@@ -8,10 +8,10 @@
 import SwiftUI
 
 extension ChatTheme.Colors {
-    func messageBG(_ type: UserType) -> Color {
+    func messageBG(_ type: UserType, isDeleted: Bool) -> Color {
         switch type {
-        case .current: messageMyBG
-        case .other: messageFriendBG
+        case .current: messageMyBG.opacity(isDeleted ? 0.75 : 1)
+        case .other: messageFriendBG.opacity(isDeleted ? 0.75 : 1)
         case .system: messageSystemBG
         }
     }

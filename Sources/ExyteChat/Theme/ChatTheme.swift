@@ -114,7 +114,7 @@ public struct ChatTheme {
         public var messageMyBG: Color
         public var messageMyText: Color
         public var messageMyTimeText: Color
-
+        
         public var messageFriendBG: Color
         public var messageFriendText: Color
         public var messageFriendTimeText: Color
@@ -141,6 +141,8 @@ public struct ChatTheme {
         public var sendButtonBackground: Color
         public var recordDot: Color
 
+        public var messageDeletedBG: Color
+        
         public init(
             mainBG: Color = Color("mainBG", bundle: .current),
             mainTint: Color = Color("inputPlaceholderText", bundle: .current),
@@ -167,7 +169,8 @@ public struct ChatTheme {
             statusError: Color = Color("statusError", bundle: .current),
             statusGray: Color = Color("statusGray", bundle: .current),
             sendButtonBackground: Color = Color("messageMyBG", bundle: .current),
-            recordDot: Color = Color("menuTextDelete", bundle: .current)
+            recordDot: Color = Color("menuTextDelete", bundle: .current),
+            messageDeletedBG: Color = Color("menuTextDelete", bundle: .current)
         ) {
             self.mainBG = mainBG
             self.mainTint = mainTint
@@ -195,6 +198,7 @@ public struct ChatTheme {
             self.statusGray = statusGray
             self.sendButtonBackground = sendButtonBackground
             self.recordDot = recordDot
+            self.messageDeletedBG = messageDeletedBG
         }
         
         public init(copy: Colors, mainBG: Color) {
@@ -224,6 +228,7 @@ public struct ChatTheme {
             self.statusGray = copy.statusGray
             self.sendButtonBackground = copy.sendButtonBackground
             self.recordDot = copy.recordDot
+            messageDeletedBG = copy.messageDeletedBG
         }
     }
 
@@ -299,6 +304,7 @@ public struct ChatTheme {
             public var read: Image
             public var sending: Image
             public var sent: Image
+            public var deleted: Image
         }
 
         public struct MessageMenu {
@@ -438,7 +444,8 @@ public struct ChatTheme {
                 playVideo: playVideo ?? Image(systemName: "play.circle.fill"),
                 read: read ?? Image(systemName: "checkmark.circle.fill"),
                 sending: sending ?? Image(systemName: "clock"),
-                sent: sent ?? Image(systemName: "checkmark.circle")
+                sent: sent ?? Image(systemName: "checkmark.circle"),
+                deleted: delete ?? Image(systemName: "checkmark.circle.fill")
             )
 
             self.messageMenu = MessageMenu(

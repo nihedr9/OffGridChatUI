@@ -114,7 +114,7 @@ public struct ChatTheme {
         public var messageMyBG: Color
         public var messageMyText: Color
         public var messageMyTimeText: Color
-
+        
         public var messageFriendBG: Color
         public var messageFriendText: Color
         public var messageFriendTimeText: Color
@@ -141,6 +141,8 @@ public struct ChatTheme {
         public var sendButtonBackground: Color
         public var recordDot: Color
 
+        public var messageDeletedBG: Color
+        
         public init(
             mainBG: Color = Color("mainBG", bundle: .current),
             mainTint: Color = Color("inputPlaceholderText", bundle: .current),
@@ -167,7 +169,8 @@ public struct ChatTheme {
             statusError: Color = Color("statusError", bundle: .current),
             statusGray: Color = Color("statusGray", bundle: .current),
             sendButtonBackground: Color = Color("messageMyBG", bundle: .current),
-            recordDot: Color = Color("menuTextDelete", bundle: .current)
+            recordDot: Color = Color("menuTextDelete", bundle: .current),
+            messageDeletedBG: Color = Color("menuTextDelete", bundle: .current)
         ) {
             self.mainBG = mainBG
             self.mainTint = mainTint
@@ -195,6 +198,7 @@ public struct ChatTheme {
             self.statusGray = statusGray
             self.sendButtonBackground = sendButtonBackground
             self.recordDot = recordDot
+            self.messageDeletedBG = messageDeletedBG
         }
         
         public init(copy: Colors, mainBG: Color) {
@@ -224,6 +228,7 @@ public struct ChatTheme {
             self.statusGray = copy.statusGray
             self.sendButtonBackground = copy.sendButtonBackground
             self.recordDot = copy.recordDot
+            messageDeletedBG = copy.messageDeletedBG
         }
     }
 

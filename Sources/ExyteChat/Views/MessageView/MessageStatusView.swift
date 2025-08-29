@@ -37,7 +37,7 @@ struct MessageStatusView: View {
             case .deleted:
                 theme.images.message.deleted
                     .resizable()
-                    .foregroundColor(getTheme().colors.messageMyBG)
+                    .foregroundColor(getTheme().colors.messageDeletedBG)
             }
         }
         .viewSize(MessageView.statusViewSize)

@@ -364,7 +364,7 @@ extension View {
             .background {
                 if isReply || !message.text.isEmpty || message.recording != nil {
                     RoundedRectangle(cornerRadius: radius)
-                        .foregroundColor(theme.colors.messageBG(message.user.type))
+                        .foregroundColor(theme.colors.messageBG(message.user.type, isDeleted: message.isDeleted))
                         .opacity(isReply ? theme.style.replyOpacity : 1)
                 }
             }

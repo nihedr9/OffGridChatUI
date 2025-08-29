@@ -299,6 +299,7 @@ public struct ChatTheme {
             public var read: Image
             public var sending: Image
             public var sent: Image
+            public var deleted: Image
         }
 
         public struct MessageMenu {
@@ -438,7 +439,8 @@ public struct ChatTheme {
                 playVideo: playVideo ?? Image(systemName: "play.circle.fill"),
                 read: read ?? Image(systemName: "checkmark.circle.fill"),
                 sending: sending ?? Image(systemName: "clock"),
-                sent: sent ?? Image(systemName: "checkmark.circle")
+                sent: sent ?? Image(systemName: "checkmark.circle"),
+                deleted: delete ?? Image(systemName: "checkmark.circle.fill")
             )
 
             self.messageMenu = MessageMenu(

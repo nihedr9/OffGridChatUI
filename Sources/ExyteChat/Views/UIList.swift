@@ -582,7 +582,7 @@ struct UIList<MessageContent: View, InputView: View>: UIViewRepresentable {
                 .transition(.scale)
                 .background(MessageMenuPreferenceViewSetter(id: row.id))
                 .rotationEffect(Angle(degrees: (type == .conversation ? 180 : 0)))
-                .applyIf(showMessageMenuOnLongPress) {
+                .applyIf(showMessageMenuOnLongPress && !row.message.isDeleted) {
                     $0.simultaneousGesture(
                         TapGesture().onEnded { } // add empty tap to prevent iOS17 scroll breaking bug (drag on cells stops working)
                     )

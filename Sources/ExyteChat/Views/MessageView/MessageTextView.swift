@@ -23,7 +23,8 @@ struct MessageTextView: View {
     let userType: UserType
     let shouldShowLinkPreview: (URL) -> Bool
     let messageLinkPreviewLimit: Int
-
+    let isDeleted: Bool
+    
     var styledText: AttributedString {
         var result = text.styled(using: messageStyler)
         result.foregroundColor = theme.colors.messageText(userType)
@@ -44,17 +45,24 @@ struct MessageTextView: View {
     var body: some View {
         if !styledText.characters.isEmpty {
             VStack(alignment: .leading) {
-                Text(styledText)
-                    .sizeGetter($textSize)
-
-                // We use .enumerated(), and \.offset as the id, so that a message with duplicate links will show a preview for each.
-                if !urlsToPreview.isEmpty {
-                    VStack {
-                        ForEach(Array(urlsToPreview.enumerated()), id: \.offset) { _, url in
-                            LinkPillView(url: url)
+                
+                if isDeleted {
+                    Text(styledText)
+                        .foregroundStyle(.gray.opacity(0.7))
+                        .font(.caption)
+                } else {
+                    Text(styledText)
+                        .sizeGetter($textSize)
+                    
+                    // We use .enumerated(), and \.offset as the id, so that a message with duplicate links will show a preview for each.
+                    if !urlsToPreview.isEmpty {
+                        VStack {
+                            ForEach(Array(urlsToPreview.enumerated()), id: \.offset) { _, url in
+                                LinkPillView(url: url)
+                            }
                         }
+                        .frame(width: max(textSize.width, Self.minLinkPreviewWidth))
                     }
-                    .frame(width: max(textSize.width, Self.minLinkPreviewWidth))
                 }
             }
         }
@@ -66,14 +74,14 @@ struct MessageTextView_Previews: PreviewProvider {
         MessageTextView(
             text: "Look at [this website](https://example.org)",
             messageStyler: AttributedString.init, userType: .other,
-            shouldShowLinkPreview: { _ in true }, messageLinkPreviewLimit: 8)
+            shouldShowLinkPreview: { _ in true }, messageLinkPreviewLimit: 8, isDeleted: false)
         MessageTextView(
             text: "Look at [this website](https://example.org)",
             messageStyler: String.markdownStyler, userType: .other,
-            shouldShowLinkPreview: { _ in true }, messageLinkPreviewLimit: 8)
+            shouldShowLinkPreview: { _ in true }, messageLinkPreviewLimit: 8, isDeleted: false)
         MessageTextView(
             text: "[@Dan](mention://user/123456789) look at [this website](https://example.org)!",
             messageStyler: String.markdownStyler, userType: .other,
-            shouldShowLinkPreview: { $0.scheme != "mention" }, messageLinkPreviewLimit: 8)
+            shouldShowLinkPreview: { $0.scheme != "mention" }, messageLinkPreviewLimit: 8, isDeleted: false)
     }
 }

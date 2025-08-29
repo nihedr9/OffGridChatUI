@@ -34,6 +34,10 @@ struct MessageStatusView: View {
                         .resizable()
                 }
                 .foregroundColor(theme.colors.statusError)
+            case .deleted:
+                theme.images.message.deleted
+                    .resizable()
+                    .foregroundColor(getTheme().colors.messageMyBG)
             }
         }
         .viewSize(MessageView.statusViewSize)

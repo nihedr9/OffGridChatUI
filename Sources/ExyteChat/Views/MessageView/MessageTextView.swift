@@ -48,7 +48,7 @@ struct MessageTextView: View {
                 
                 if isDeleted {
                     Text(styledText)
-                        .foregroundStyle(.gray.opacity(0.7))
+                        .foregroundStyle(theme.colors.messageText(userType).opacity(0.7))
                         .font(.caption)
                 } else {
                     Text(styledText)

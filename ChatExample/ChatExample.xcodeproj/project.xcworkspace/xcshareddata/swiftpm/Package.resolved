@@ -1,5 +1,5 @@
 {
-  "originHash" : "5b95c2587b5a75314b05656587f393ed24b3fc5b83caa37a5b339e1e97626190",
+  "originHash" : "c30857e57d6401b5004e739fac7c8c3c2dfa49b1c962a63074720d7183d3c51e",
   "pins" : [
     {
       "identity" : "activityindicatorview",
@@ -29,6 +29,15 @@
       }
     },
     {
+      "identity" : "kingfisher",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/onevcat/Kingfisher",
+      "state" : {
+        "revision" : "2015fda791daa72c8058619545a593bf8c1dd59f",
+        "version" : "8.5.0"
+      }
+    },
+    {
       "identity" : "libwebp-xcode",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SDWebImage/libwebp-Xcode",
@@ -42,8 +51,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/exyte/MediaPicker.git",
       "state" : {
-        "revision" : "c287ee410e5d9e9d642ed9c715042830f174a1d6",
-        "version" : "3.1.4"
+        "branch" : "main",
+        "revision" : "41fabaed5c3228392be77b4a0a05b8d445eda245"
       }
     }
   ],

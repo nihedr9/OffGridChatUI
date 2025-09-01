@@ -17,6 +17,7 @@ struct MockMessage: Sendable {
     let reactions: [Reaction]
     let recording: Recording?
     let replyMessage: ReplyMessage?
+    let documentUrl: URL?
 }
 
 extension MockMessage {
@@ -30,7 +31,8 @@ extension MockMessage {
             attachments: images.map { $0.toChatAttachment() } + videos.map { $0.toChatAttachment() },
             reactions: reactions,
             recording: recording,
-            replyMessage: replyMessage
+            replyMessage: replyMessage,
+            documentUrl: documentUrl
         )
     }
 }

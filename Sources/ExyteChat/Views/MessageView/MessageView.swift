@@ -36,6 +36,8 @@ struct MessageView: View {
     // Therefore we need to capture it's rendered size in order to place it correctly
     @State var bubbleSize: CGSize = .zero
 
+    @State private var selectedURL: URL?
+    
     static let widthWithMedia: CGFloat = 204
     static let horizontalScreenEdgePadding: CGFloat = 12
     static let horizontalNoAvatarPadding: CGFloat = horizontalScreenEdgePadding / 2
@@ -142,6 +144,7 @@ struct MessageView: View {
         .frame(
             maxWidth: UIScreen.main.bounds.width,
             alignment: message.user.isCurrentUser ? .trailing : .leading)
+        .quickLookPreview($selectedURL)
     }
 
     @ViewBuilder
@@ -165,6 +168,21 @@ struct MessageView: View {
                     attachmentsView(message)
                 }
 
+                if let url = message.documentUrl {
+                    VStack(alignment: .trailing, spacing: 8) {
+                        documentView(with: url)
+                            .onTapGesture {
+                                selectedURL = url
+                            }
+                        if !message.text.isEmpty {
+                            messageTimeView()
+                                .padding(.bottom, 8)
+                                .padding(.trailing, 12)
+                        }
+                    }
+                    .bubbleBackground(message, theme: theme)
+                }
+                
                 if !message.text.isEmpty {
                     textWithTimeView(message)
                         .font(Font(font))
@@ -252,8 +270,8 @@ struct MessageView: View {
 
     @ViewBuilder
     func attachmentsView(_ message: Message) -> some View {
-        AttachmentsGrid(attachments: message.attachments) {
-            viewModel.presentAttachmentFullScreen($0)
+        AttachmentsGrid(attachments: message.attachments) { attachment in
+            selectedURL = attachment.full
         }
         .applyIf(message.attachments.count > 1) {
             $0
@@ -346,6 +364,15 @@ struct MessageView: View {
         }
         .sizeGetter($timeSize)
     }
+    
+    func documentView(with url: URL) -> some View {
+        FileAttachmentView(
+            url: url,
+            width: 250,
+            isCurrentUser: message.user.isCurrentUser,
+            font: font
+        )
+    }
 }
 
 extension View {
@@ -362,7 +389,7 @@ extension View {
             )
             .foregroundColor(theme.colors.messageText(message.user.type))
             .background {
-                if isReply || !message.text.isEmpty || message.recording != nil {
+                if isReply || !message.text.isEmpty || message.recording != nil || message.documentUrl != nil {
                     RoundedRectangle(cornerRadius: radius)
                         .foregroundColor(theme.colors.messageBG(message.user.type, isDeleted: message.isDeleted))
                         .opacity(isReply ? theme.style.replyOpacity : 1)

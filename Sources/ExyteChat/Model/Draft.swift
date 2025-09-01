@@ -14,14 +14,16 @@ public struct DraftMessage: Sendable {
     public let recording: Recording?
     public let replyMessage: ReplyMessage?
     public let createdAt: Date
-    
+    public var documentUrl: URL?
+
     public init(id: String? = nil,
                 text: String,
                 medias: [Media],
                 giphyMedia: GPHMedia?,
                 recording: Recording?,
                 replyMessage: ReplyMessage?,
-                createdAt: Date) {
+                createdAt: Date,
+                documentUrl: URL?) {
         self.id = id
         self.text = text
         self.medias = medias
@@ -29,6 +31,7 @@ public struct DraftMessage: Sendable {
         self.recording = recording
         self.replyMessage = replyMessage
         self.createdAt = createdAt
+        self.documentUrl = documentUrl
     }
 }
 

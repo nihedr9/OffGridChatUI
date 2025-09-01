@@ -30,6 +30,7 @@ struct ChatExampleView: View {
                 viewModel.loadMoreMessage(before: message)
             }
         }
+        .setAvailableInputs([.audio, .media, .document, .text])
         .keyboardDismissMode(.interactive)
         .messageUseMarkdown(true)
         .setRecorderSettings(recorderSettings)

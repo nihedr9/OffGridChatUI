@@ -278,6 +278,7 @@ public struct ChatTheme {
             public var attach: Image
             public var attachCamera: Image
             public var microphone: Image
+            public var document: Image
         }
 
         public struct FullscreenMedia {
@@ -416,9 +417,10 @@ public struct ChatTheme {
                 add: add ?? Image("add", bundle: .current),
                 arrowSend: arrowSend ?? Image("arrowSend", bundle: .current),
                 sticker: sticker ?? Image("sticker", bundle: .current),
-                attach: attach ?? Image("attach", bundle: .current),
+                attach: attach ?? Image(systemName: "photo.fill.on.rectangle.fill"),
                 attachCamera: attachCamera ?? Image("attachCamera", bundle: .current),
-                microphone: microphone ?? Image("microphone", bundle: .current)
+                microphone: microphone ?? Image("microphone", bundle: .current),
+                document: document ?? Image(systemName: "paperclip")
             )
 
             self.fullscreenMedia = FullscreenMedia(

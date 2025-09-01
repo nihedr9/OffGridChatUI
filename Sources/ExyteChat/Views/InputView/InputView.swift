@@ -29,7 +29,7 @@ public enum InputViewAction: Sendable {
     case playRecord
     case pauseRecord
     //    case location
-    //    case document
+        case document
 
     case saveEdit
     case cancelEdit
@@ -61,6 +61,7 @@ public enum AvailableInputType: Sendable {
     case media
     case audio
     case giphy
+    case document
 }
 
 public struct InputViewAttachments {
@@ -68,6 +69,7 @@ public struct InputViewAttachments {
     var recording: Recording?
     var giphyMedia: GPHMedia?
     var replyMessage: ReplyMessage?
+    var documentUrl: URL?
 }
 
 struct InputView: View {
@@ -147,6 +149,9 @@ struct InputView: View {
                 }
                 if isGiphyAvailable() {
                     giphyButton
+                }
+                if isDocumentAvailable() {
+                    documentButton
                 }
             case .signature:
                 if viewModel.mediaPickerMode == .cameraSelection {
@@ -331,8 +336,22 @@ struct InputView: View {
             onAction(.photo)
         } label: {
             theme.images.inputView.attach
+                .renderingMode(.template)
+                .foregroundStyle(theme.colors.sendButtonBackground)
                 .viewSize(24)
-                .padding(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 6))
+                .padding(EdgeInsets(top: 12, leading: 12, bottom: 12, trailing: 4))
+        }
+    }
+    
+    var documentButton: some View {
+        Button {
+            onAction(.document)
+        } label: {
+            theme.images.inputView.document
+                .renderingMode(.template)
+                .foregroundStyle(theme.colors.sendButtonBackground)
+                .viewSize(24)
+                .padding(EdgeInsets(top: 12, leading: 4, bottom: 12, trailing: 4))
         }
     }
     
@@ -341,7 +360,8 @@ struct InputView: View {
             onAction(.giphy)
         } label: {
             theme.images.inputView.sticker
-                .resizable()
+                .renderingMode(.template)
+                .foregroundStyle(theme.colors.sendButtonBackground)
                 .viewSize(24)
                 .padding(EdgeInsets(top: 12, leading: 6, bottom: 12, trailing: 12))
         }
@@ -363,6 +383,8 @@ struct InputView: View {
             onAction(.camera)
         } label: {
             theme.images.inputView.attachCamera
+                .renderingMode(.template)
+                .foregroundStyle(theme.colors.sendButtonBackground)
                 .viewSize(24)
                 .padding(EdgeInsets(top: 12, leading: 8, bottom: 12, trailing: 12))
         }
@@ -593,6 +615,10 @@ struct InputView: View {
     
     private func isMediaAvailable() -> Bool {
         return availableInputs.contains(AvailableInputType.media)
+    }
+    
+    private func isDocumentAvailable() -> Bool {
+        return availableInputs.contains(AvailableInputType.document)
     }
 }
 

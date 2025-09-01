@@ -234,7 +234,6 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
                 .environmentObject(globalFocusState)
                 .environmentObject(keyboardState)
             }
-        
             .onChange(of: inputViewModel.showPicker) { _ , newValue in
                 if newValue {
                     globalFocusState.focus = nil
@@ -243,6 +242,21 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
             .onChange(of: inputViewModel.showGiphyPicker) { _ , newValue in
                 if newValue {
                     globalFocusState.focus = nil
+                }
+            }
+            .fileImporter(
+                isPresented: $inputViewModel.showFiles,
+                allowedContentTypes: [.item],
+                allowsMultipleSelection: false
+            ) { result in
+                switch result {
+                case .success(let urls):
+                    if let url = urls.first {
+                        inputViewModel.attachments.documentUrl = url
+                        inputViewModel.send()
+                    }
+                case .failure:
+                    break
                 }
             }
     }

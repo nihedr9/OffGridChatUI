@@ -45,7 +45,8 @@ final class MockChatData {
             videos: [],
             reactions: [],
             recording: nil,
-            replyMessage: nil
+            replyMessage: nil,
+            documentUrl: nil
         )
     }
 
@@ -92,7 +93,8 @@ final class MockChatData {
             videos: msg.videos,
             reactions: msg.reactions + [randomReaction(senders: senders)],
             recording: msg.recording,
-            replyMessage: msg.replyMessage
+            replyMessage: msg.replyMessage,
+            documentUrl: msg.documentUrl
         )
     }
 }

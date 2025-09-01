@@ -16,7 +16,8 @@ final class InputViewModel: ObservableObject {
     
     @Published var showGiphyPicker = false
     @Published var showPicker = false
-    
+    @Published var showFiles = false
+
     @Published var mediaPickerMode = MediaPickerMode.photos
     
     @Published var showActivityIndicator = false
@@ -42,6 +43,7 @@ final class InputViewModel: ObservableObject {
         subscribeValidation()
         subscribePicker()
         subscribeGiphyPicker()
+        subscribeDocument()
     }
     
     func onStop() {
@@ -51,6 +53,7 @@ final class InputViewModel: ObservableObject {
     func reset() {
         DispatchQueue.main.async { [weak self] in
             self?.showPicker = false
+            self?.showFiles = false
             self?.showGiphyPicker = false
             self?.text = ""
             self?.saveEditingClosure = nil
@@ -137,6 +140,8 @@ final class InputViewModel: ObservableObject {
             reset()
         case .cancelEdit:
             reset()
+        case .document:
+            showFiles = true
         }
     }
     
@@ -176,7 +181,7 @@ private extension InputViewModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             guard state != .editing else { return } // special case
-            if !self.text.isEmpty || !self.attachments.medias.isEmpty {
+            if !self.text.isEmpty || !self.attachments.medias.isEmpty || self.attachments.documentUrl != nil {
                 self.state = .hasTextOrMedia
             } else if self.text.isEmpty,
                       self.attachments.medias.isEmpty,
@@ -218,6 +223,16 @@ private extension InputViewModel {
             .store(in: &subscriptions)
     }
     
+    func subscribeDocument() {
+        $showFiles
+            .sink { [weak self] value in
+                if !value {
+                    self?.attachments.documentUrl = nil
+                }
+            }
+            .store(in: &subscriptions)
+    }
+    
     func subscribeRecordPlayer() {
         Task { @MainActor in
             if let recordingPlayer {
@@ -244,7 +259,8 @@ private extension InputViewModel {
             giphyMedia: attachments.giphyMedia,
             recording: attachments.recording,
             replyMessage: attachments.replyMessage,
-            createdAt: Date()
+            createdAt: Date(),
+            documentUrl: attachments.documentUrl
         )
         didSendMessage?(draft)
         DispatchQueue.main.async { [weak self] in

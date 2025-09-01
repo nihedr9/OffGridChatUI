@@ -42,9 +42,8 @@ public struct AttachmentCell: View {
         }
         .frame(width: size.width, height: size.height)
         .contentShape(Rectangle())
-        .quickLookPreview($selectedURL)
         .onTapGesture {
-            selectedURL = attachment.full
+            onTap(attachment)
         }
     }
     

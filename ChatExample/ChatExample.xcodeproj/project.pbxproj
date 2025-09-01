@@ -26,6 +26,7 @@
 		5B0636DB2C2EA21900E54AEE /* Sequence+asyncMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0636DA2C2EA21900E54AEE /* Sequence+asyncMap.swift */; };
 		5B6467A02D96F4FC00FFD920 /* ExyteChat in Frameworks */ = {isa = PBXBuildFile; productRef = 5B64679F2D96F4FC00FFD920 /* ExyteChat */; };
 		5B6D3A732987D85A00765148 /* Color+hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6D3A722987D85A00765148 /* Color+hex.swift */; };
+		60C8E1122E65FF2B00544F7F /* ExyteChat in Frameworks */ = {isa = PBXBuildFile; productRef = 60C8E1112E65FF2B00544F7F /* ExyteChat */; };
 		FF220E5D2DD9F0B700BE315E /* .editorconfig in Resources */ = {isa = PBXBuildFile; fileRef = FF220E5C2DD9F0AF00BE315E /* .editorconfig */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60C8E1122E65FF2B00544F7F /* ExyteChat in Frameworks */,
 				5B6467A02D96F4FC00FFD920 /* ExyteChat in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -204,6 +206,7 @@
 			name = ChatExample;
 			packageProductDependencies = (
 				5B64679F2D96F4FC00FFD920 /* ExyteChat */,
+				60C8E1112E65FF2B00544F7F /* ExyteChat */,
 			);
 			productName = ChatExample;
 			productReference = 135549302864620900C9459A /* ChatExample.app */;
@@ -234,7 +237,7 @@
 			);
 			mainGroup = 135549272864620900C9459A;
 			packageReferences = (
-				5B64679E2D96F4FC00FFD920 /* XCLocalSwiftPackageReference "../../Chat" */,
+				60C8E1102E65FF2B00544F7F /* XCLocalSwiftPackageReference "../../OffGridChatUI" */,
 			);
 			productRefGroup = 135549312864620900C9459A /* Products */;
 			projectDirPath = "";
@@ -413,7 +416,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChatExample/Preview Content\"";
-				DEVELOPMENT_TEAM = FZXCM5CJ7P;
+				DEVELOPMENT_TEAM = 784WPTD3P6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChatExample/Info.plist;
@@ -454,7 +457,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_ASSET_PATHS = "\"ChatExample/Preview Content\"";
-				DEVELOPMENT_TEAM = FZXCM5CJ7P;
+				DEVELOPMENT_TEAM = 784WPTD3P6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ChatExample/Info.plist;
@@ -508,14 +511,18 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
-		5B64679E2D96F4FC00FFD920 /* XCLocalSwiftPackageReference "../../Chat" */ = {
+		60C8E1102E65FF2B00544F7F /* XCLocalSwiftPackageReference "../../OffGridChatUI" */ = {
 			isa = XCLocalSwiftPackageReference;
-			relativePath = ../../Chat;
+			relativePath = ../../OffGridChatUI;
 		};
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
 		5B64679F2D96F4FC00FFD920 /* ExyteChat */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = ExyteChat;
+		};
+		60C8E1112E65FF2B00544F7F /* ExyteChat */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = ExyteChat;
 		};

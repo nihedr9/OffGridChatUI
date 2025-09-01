@@ -77,7 +77,8 @@ final actor MockChatInteractor {
                 videos: originalMessage.videos,
                 reactions: originalMessage.reactions + [reaction],
                 recording: originalMessage.recording,
-                replyMessage: originalMessage.replyMessage
+                replyMessage: originalMessage.replyMessage,
+                documentUrl: originalMessage.documentUrl
             )
             print("Setting Reaction")
             self.messages[matchIndex] = newMessage
@@ -122,7 +123,8 @@ final actor MockChatInteractor {
                     videos: originalMessage.videos,
                     reactions: reactions,
                     recording: originalMessage.recording,
-                    replyMessage: originalMessage.replyMessage
+                    replyMessage: originalMessage.replyMessage,
+                    documentUrl: originalMessage.documentUrl
                 )
 
                 self.messages[matchIndex] = newMessage
@@ -211,7 +213,8 @@ extension MockChatInteractor {
             videos: await makeMockVideos(draftMessage),
             reactions: [],
             recording: draftMessage.recording,
-            replyMessage: draftMessage.replyMessage
+            replyMessage: draftMessage.replyMessage,
+            documentUrl: draftMessage.documentUrl
         )
     }
 

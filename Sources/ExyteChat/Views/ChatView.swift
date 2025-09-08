@@ -246,7 +246,7 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
             }
             .fileImporter(
                 isPresented: $inputViewModel.showFiles,
-                allowedContentTypes: [.item],
+                allowedContentTypes: [.pdf, .plainText, .zip, .item],
                 allowsMultipleSelection: false
             ) { result in
                 switch result {

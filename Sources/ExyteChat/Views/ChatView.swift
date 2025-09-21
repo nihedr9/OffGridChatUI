@@ -246,13 +246,13 @@ public struct ChatView<MessageContent: View, InputViewContent: View, MenuAction:
             }
             .fileImporter(
                 isPresented: $inputViewModel.showFiles,
-                allowedContentTypes: [.pdf, .plainText, .zip, .item],
+                allowedContentTypes: [.item],
                 allowsMultipleSelection: false
             ) { result in
                 switch result {
                 case .success(let urls):
                     if let url = urls.first {
-                        inputViewModel.attachments.documentUrl = url
+                        inputViewModel.attachments.fileAttachment = .init(id: UUID().uuidString, url: url)
                         inputViewModel.send()
                     }
                 case .failure:

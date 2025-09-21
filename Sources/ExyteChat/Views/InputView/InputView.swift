@@ -69,7 +69,7 @@ public struct InputViewAttachments {
     var recording: Recording?
     var giphyMedia: GPHMedia?
     var replyMessage: ReplyMessage?
-    var documentUrl: URL?
+    var fileAttachment: FileAttachment?
 }
 
 struct InputView: View {

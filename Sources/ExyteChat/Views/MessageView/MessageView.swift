@@ -168,11 +168,11 @@ struct MessageView: View {
                     attachmentsView(message)
                 }
 
-                if let url = message.documentUrl {
+                if let file = message.fileAttachment {
                     VStack(alignment: .trailing, spacing: 8) {
-                        documentView(with: url)
+                        documentView(with: file)
                             .onTapGesture {
-                                selectedURL = url
+                                selectedURL = file.url
                             }
                         if !message.text.isEmpty {
                             messageTimeView()
@@ -180,7 +180,6 @@ struct MessageView: View {
                                 .padding(.trailing, 12)
                         }
                     }
-                    .bubbleBackground(message, theme: theme)
                 }
                 
                 if !message.text.isEmpty {
@@ -365,9 +364,9 @@ struct MessageView: View {
         .sizeGetter($timeSize)
     }
     
-    func documentView(with url: URL) -> some View {
+    func documentView(with file: FileAttachment) -> some View {
         FileAttachmentView(
-            url: url,
+            file: file,
             width: 250,
             isCurrentUser: message.user.isCurrentUser,
             font: font
@@ -389,7 +388,7 @@ extension View {
             )
             .foregroundColor(theme.colors.messageText(message.user.type))
             .background {
-                if isReply || !message.text.isEmpty || message.recording != nil || message.documentUrl != nil {
+                if isReply || !message.text.isEmpty || message.recording != nil || message.fileAttachment != nil {
                     RoundedRectangle(cornerRadius: radius)
                         .foregroundColor(theme.colors.messageBG(message.user.type, isDeleted: message.isDeleted))
                         .opacity(isReply ? theme.style.replyOpacity : 1)

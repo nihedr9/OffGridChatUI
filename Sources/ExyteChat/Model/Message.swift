@@ -60,7 +60,7 @@ public struct Message: Identifiable, Hashable, Sendable {
     public var giphyMediaId: String?
     public var recording: Recording?
     public var replyMessage: ReplyMessage?
-    public var documentUrl: URL?
+    public var fileAttachment: FileAttachment?
     
     public var triggerRedraw: UUID?
 
@@ -78,7 +78,7 @@ public struct Message: Identifiable, Hashable, Sendable {
                 reactions: [Reaction] = [],
                 recording: Recording? = nil,
                 replyMessage: ReplyMessage? = nil,
-                documentUrl: URL? = nil) {
+                fileAttachment: FileAttachment? = nil) {
 
         self.id = id
         self.user = user
@@ -90,7 +90,7 @@ public struct Message: Identifiable, Hashable, Sendable {
         self.reactions = reactions
         self.recording = recording
         self.replyMessage = replyMessage
-        self.documentUrl = documentUrl
+        self.fileAttachment = fileAttachment
     }
 
     public static func makeMessage(
@@ -126,7 +126,7 @@ public struct Message: Identifiable, Hashable, Sendable {
                 giphyMediaId: giphyMediaId,
                 recording: draft.recording,
                 replyMessage: draft.replyMessage,
-                documentUrl: draft.documentUrl
+                fileAttachment: draft.fileAttachment
             )
         }
 }
@@ -181,7 +181,7 @@ public struct ReplyMessage: Codable, Identifiable, Hashable, Sendable {
     public var text: String
     public var attachments: [Attachment]
     public var recording: Recording?
-    public var documentUrl: URL?
+    public var fileAttachment: FileAttachment?
     
     public init(id: String,
                 user: User,
@@ -189,7 +189,7 @@ public struct ReplyMessage: Codable, Identifiable, Hashable, Sendable {
                 text: String = "",
                 attachments: [Attachment] = [],
                 recording: Recording? = nil,
-                documentUrl: URL?) {
+                fileAttachment: FileAttachment?) {
 
         self.id = id
         self.user = user
@@ -197,7 +197,7 @@ public struct ReplyMessage: Codable, Identifiable, Hashable, Sendable {
         self.text = text
         self.attachments = attachments
         self.recording = recording
-        self.documentUrl = documentUrl
+        self.fileAttachment = fileAttachment
     }
 
     func toMessage() -> Message {
@@ -208,7 +208,7 @@ public struct ReplyMessage: Codable, Identifiable, Hashable, Sendable {
             text: text,
             attachments: attachments,
             recording: recording,
-            documentUrl: documentUrl
+            fileAttachment: fileAttachment
         )
     }
 }
@@ -223,7 +223,7 @@ public extension Message {
             text: text,
             attachments: attachments,
             recording: recording,
-            documentUrl: documentUrl
+            fileAttachment: fileAttachment
         )
     }
 }

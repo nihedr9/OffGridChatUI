@@ -14,8 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/exyte/AnchoredPopup.git",
       "state" : {
-        "revision" : "787f27027d3ef38c01469d228ce062ab4d5645f5",
-        "version" : "1.0.6"
+        "revision" : "d7478c34e761725ff06ad74e44e675d0d56a4150",
+        "version" : "1.0.7"
       }
     },
     {
@@ -51,7 +51,7 @@
       "location" : "https://github.com/exyte/MediaPicker.git",
       "state" : {
         "branch" : "main",
-        "revision" : "41fabaed5c3228392be77b4a0a05b8d445eda245"
+        "revision" : "c3769c6f6a25b57bb9986eed314192d4cd13d4eb"
       }
     }
   ],

@@ -181,7 +181,7 @@ private extension InputViewModel {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             guard state != .editing else { return } // special case
-            if !self.text.isEmpty || !self.attachments.medias.isEmpty || self.attachments.documentUrl != nil {
+            if !self.text.isEmpty || !self.attachments.medias.isEmpty || self.attachments.fileAttachment != nil {
                 self.state = .hasTextOrMedia
             } else if self.text.isEmpty,
                       self.attachments.medias.isEmpty,
@@ -227,7 +227,7 @@ private extension InputViewModel {
         $showFiles
             .sink { [weak self] value in
                 if !value {
-                    self?.attachments.documentUrl = nil
+                    self?.attachments.fileAttachment = nil
                 }
             }
             .store(in: &subscriptions)
@@ -260,7 +260,7 @@ private extension InputViewModel {
             recording: attachments.recording,
             replyMessage: attachments.replyMessage,
             createdAt: Date(),
-            documentUrl: attachments.documentUrl
+            fileAttachment: attachments.fileAttachment
         )
         didSendMessage?(draft)
         DispatchQueue.main.async { [weak self] in
